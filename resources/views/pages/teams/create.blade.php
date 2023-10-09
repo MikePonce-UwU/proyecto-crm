@@ -11,7 +11,7 @@
                             <fieldset class="row mb-3 border rounded py-4">
                                 <legend class="pl-2">Team details</legend>
                                 {{-- Name --}}
-                                <div class="input-group col-md-6 col-12">
+                                <div class="input-group col-md-6 col-12 mb-4 mb-sm-0">
                                     <input id="name" type="text"
                                         class="form-control @error('name') is-invalid @enderror" name="name"
                                         value="{{ old('name', '') }}" autofocus placeholder="Insert your name">
@@ -27,17 +27,17 @@
                                     @enderror
                                 </div>
                                 {{-- <!-- Is this user associated to this tenant team -->
-                                <div class="form-check col-md-6 col-12">
+                                <div class="form-check col-md-6 col-12 mb-4 mb-sm-0">
                                     <input type="checkbox" name="associated" id="associated" class="form-check-input">
                                     <label for="associated" class="form-check-label">Is this profile associated to this team?</label>
                                 </div> --}}
                             </fieldset>
                             <fieldset class="row mb-3 border rounded py-4">
                                 <legend class="pl-2">Users</legend>
-                                <div class="col-12" id="repeater-container">
+                                <div class="col-12 mb-4 mb-sm-0" id="repeater-container">
                                     <div id="repeater"></div>
                                 </div>
-                                <div class="col-12">
+                                <div class="col-12 mb-4 mb-sm-0">
                                     <button type="button" id="btnAddUser" class="btn btn-sm btn-default"
                                         hx-get="/api/get-users" hx-trigger="click" hx-target="#repeater" hx-swap="beforeend">
                                         Add user

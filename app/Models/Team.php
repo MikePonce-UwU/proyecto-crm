@@ -14,4 +14,12 @@ class Team extends Model
     {
         return $this->belongsToMany(User::class)->withPivot('role')->withTimestamps();
     }
+    public function clients()
+    {
+        return $this->belongsTo(Client::class);
+    }
+    public function appointments()
+    {
+        return $this->belongsTo(Appointment::class);
+    }
 }

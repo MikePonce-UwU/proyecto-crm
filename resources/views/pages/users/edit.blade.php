@@ -12,7 +12,7 @@
                             <fieldset class="row mb-3 border rounded py-4">
                                 <legend class="pl-2">User</legend>
                                 {{-- Name --}}
-                                <div class="input-group col-md-6 col-12">
+                                <div class="input-group col-md-6 col-12 mb-4 mb-sm-0">
                                     {{-- <input type="email" class="form-control" placeholder="Email"> --}}
                                     <input id="name" type="text"
                                         class="form-control @error('name') is-invalid @enderror" name="name"
@@ -29,7 +29,7 @@
                                     @enderror
                                 </div>
                                 {{-- Email --}}
-                                <div class="input-group col-md-6 col-12">
+                                <div class="input-group col-md-6 col-12 mb-4 mb-sm-0">
                                     {{-- <input type="email" class="form-control" placeholder="Email"> --}}
                                     <input id="email" type="email"
                                         class="form-control @error('email') is-invalid @enderror" name="email"
@@ -49,7 +49,7 @@
                             <fieldset class="row mb-3 border rounded py-4">
                                 <legend class="pl-2">Password</legend>
                                 {{-- Name --}}
-                                <div class="input-group col-md-6 col-12">
+                                <div class="input-group col-md-6 col-12 mb-4 mb-sm-0">
                                     {{-- <input type="email" class="form-control" placeholder="Email"> --}}
                                     <input id="password" type="password"
                                         class="form-control @error('password') is-invalid @enderror" name="password"
@@ -66,7 +66,7 @@
                                     @enderror
                                 </div>
                                 {{-- Email --}}
-                                <div class="input-group col-md-6 col-12">
+                                <div class="input-group col-md-6 col-12 mb-4 mb-sm-0">
                                     {{-- <input type="email" class="form-control" placeholder="Email"> --}}
                                     <input id="password_confirmation" type="password"
                                         class="form-control @error('password_confirmation') is-invalid @enderror"

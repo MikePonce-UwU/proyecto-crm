@@ -43,8 +43,9 @@ class ClientController extends Controller
     public function store(StoreClientRequest $request)
     {
         //
-        Client::create($request->validated());
-
+        $client = Client::create($request->validated());
+        $client->team()->associate(auth()->user()->currentTeam);
+        $client->save();
         return redirect()->route('admin.clients.index')->with('client-success', 'Client successfully created');
     }
 

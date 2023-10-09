@@ -63,7 +63,9 @@
     <!-- Page specific script -->
     <script>
         $(function() {
-            $("#team-table").DataTable();
+            $("#team-table").DataTable({
+                responsive: true
+            });
         });
     </script>
 @endpush

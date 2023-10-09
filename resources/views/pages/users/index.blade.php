@@ -28,13 +28,14 @@
                             </thead>
                             <tbody>
                                 @foreach ($users as $user)
-                                {{-- @dd($user->currentTeam->name) --}}
-                                {{-- @dd($user->teams()->firstWhere('team_id', '=', $user->current_team_id)->pivot->role) --}}
+                                    {{-- @dd($user->currentTeam->name) --}}
+                                    {{-- @dd($user->teams()->firstWhere('team_id', '=', $user->current_team_id)->pivot->role) --}}
                                     <tr key="{{ $user->id }}">
                                         <td>{{ $user->id }}</td>
                                         <td>{{ $user->name }}</td>
                                         <td>{{ $user->email }}</td>
-                                        <td>{{ $user->teams()->firstWhere('team_id', '=', $user->current_team_id)->pivot->role }}</td>
+                                        <td>{{ $user->teams()->firstWhere('team_id', '=', $user->current_team_id)->pivot->role }}
+                                        </td>
                                         <td>
                                             {{ $user->email_verified_at
                                                 ? Str::of('<i class="fas fa-check text-success"></i>')->toHtmlString()
@@ -46,13 +47,15 @@
                                         </td>
                                         <td>
                                             <div class="dropdown">
-                                                <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="false">
+                                                <a href="#" class="dropdown-toggle" role="button"
+                                                    data-toggle="dropdown" aria-expanded="false">
                                                     <i class="fas fa-ellipsis-v"></i>
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right">
                                                     <h6 class="dropdown-header">Options</h6>
                                                     <a href="{{ route('admin.users.edit', $user) }}"
-                                                        class="dropdown-item bg-gradient-warning"><i class="fas fa-pen mr-4"></i> Edit</a>
+                                                        class="dropdown-item bg-gradient-warning"><i
+                                                            class="fas fa-pen mr-4"></i> Edit</a>
                                                     <form action="{{ route('admin.users.destroy', $user) }}"
                                                         class="d-hidden" method="POST">
                                                         @csrf
@@ -79,7 +82,10 @@
     <!-- Page specific script -->
     <script>
         $(function() {
-            $("#user-table").DataTable();
+            $("#user-table").DataTable({
+                responsive: true
+            });
         });
+        
     </script>
 @endpush

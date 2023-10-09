@@ -51,6 +51,16 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="{{ route('admin.appointments.index') }}"
+                        class="nav-link {{ request()->routeIs('admin.appointments.*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-calendar-plus"></i>
+                        <p>
+                            {{ __('Appointments') }}
+                            {{-- <i class="right fas fa-angle-left"></i> --}}
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="{{ route('admin.users.index') }}"
                         class="nav-link {{ request()->routeIs('admin.users.*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-user-plus"></i>

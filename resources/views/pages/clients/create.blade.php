@@ -11,7 +11,7 @@
                             <fieldset class="row mb-3 border rounded py-4">
                                 <legend class="pl-2">Client</legend>
                                 {{-- contact_name --}}
-                                <div class="input-group col-md-4 col-12">
+                                <div class="input-group col-md-4 col-12 mb-4 mb-sm-0">
                                     {{-- <input type="email" class="form-control" placeholder="Email"> --}}
                                     <input id="contact_name" type="text"
                                         class="form-control @error('contact_name') is-invalid @enderror" name="contact_name"
@@ -29,7 +29,7 @@
                                     @enderror
                                 </div>
                                 {{-- contact_email --}}
-                                <div class="input-group col-md-4 col-12">
+                                <div class="input-group col-md-4 col-12 mb-4 mb-sm-0">
                                     {{-- <input type="email" class="form-control" placeholder="Email"> --}}
                                     <input id="contact_email" type="email"
                                         class="form-control @error('contact_email') is-invalid @enderror" name="contact_email"
@@ -47,7 +47,7 @@
                                     @enderror
                                 </div>
                                 {{-- contact_phone_number --}}
-                                <div class="input-group col-md-4 col-12">
+                                <div class="input-group col-md-4 col-12 mb-4 mb-sm-0">
                                     {{-- <input type="email" class="form-control" placeholder="Email"> --}}
                                     <input id="contact_phone_number" type="text"
                                         class="form-control @error('contact_phone_number') is-invalid @enderror" name="contact_phone_number"
@@ -68,7 +68,7 @@
                             <fieldset class="row mb-3 border rounded py-4">
                                 <legend class="pl-2">Company</legend>
                                 {{-- company_name --}}
-                                <div class="input-group col-md-4 col-12">
+                                <div class="input-group col-md-4 col-12 mb-4 mb-sm-0">
                                     {{-- <input type="email" class="form-control" placeholder="Email"> --}}
                                     <input id="company_name" type="text"
                                         class="form-control @error('company_name') is-invalid @enderror" name="company_name"
@@ -86,7 +86,7 @@
                                     @enderror
                                 </div>
                                 {{-- company_address --}}
-                                <div class="input-group col-md-4 col-12">
+                                <div class="input-group col-md-4 col-12 mb-4 mb-sm-0">
                                     {{-- <input type="email" class="form-control" placeholder="Email"> --}}
                                     <input id="company_address" type="text"
                                         class="form-control @error('company_address') is-invalid @enderror" name="company_address"
@@ -104,7 +104,7 @@
                                     @enderror
                                 </div>
                                 {{-- company_phone_number --}}
-                                <div class="input-group col-md-4 col-12">
+                                <div class="input-group col-md-4 col-12 mb-4 mb-sm-0">
                                     {{-- <input type="email" class="form-control" placeholder="Email"> --}}
                                     <input id="company_phone_number" type="text"
                                         class="form-control @error('company_phone_number') is-invalid @enderror" name="company_phone_number"

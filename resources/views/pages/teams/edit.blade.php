@@ -12,7 +12,7 @@
                             <fieldset class="row mb-3 border rounded py-4">
                                 <legend class="pl-2">team</legend>
                                 {{-- Name --}}
-                                <div class="input-group col-md-6 col-12">
+                                <div class="input-group col-md-6 col-12  mb-4 mb-sm-0">
                                     {{-- <input type="email" class="form-control" placeholder="Email"> --}}
                                     <input id="name" type="text"
                                         class="form-control @error('name') is-invalid @enderror" name="name"
@@ -29,7 +29,7 @@
                                     @enderror
                                 </div>
                                 {{-- <!-- Is this user associated to this tenant team -->
-                                <div class="form-check col-md-6 col-12">
+                                <div class="form-check col-md-6 col-12  mb-4 mb-sm-0">
                                     <input type="checkbox" name="associated" id="associated" class="form-check-input" {{ $associated ? 'checked' : '' }}>
                                     <label for="associated" class="form-check-label">Is this profile associated to this team?</label>
                                 </div> --}}
@@ -41,7 +41,7 @@
                                         {{-- @dump($item->pivot->user_id)
                                     @dump($item->pivot->role) --}}
                                         <div class="row mb-3">
-                                            <div class="col-md-6 col-12">
+                                            <div class="col-md-6 col-12  mb-4 mb-sm-0">
                                                 <div class="input-group">
                                                     <span class="input-group-prepend">
                                                         <button id="btnRemoveUser" type="button" class="btn btn-danger"><i
@@ -58,7 +58,7 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6 col-12">
+                                            <div class="col-md-6 col-12  mb-4 mb-sm-0">
                                                 <div class="form-group">
                                                     <select name="role" id="role" class="form-control">
                                                         <option selected disabled>Select an option</option>

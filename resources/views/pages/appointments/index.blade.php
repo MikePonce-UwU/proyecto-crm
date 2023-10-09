@@ -1,41 +1,37 @@
-@extends('layouts.adminlte', ['title' => 'Clients', 'breadcrumbs_title' => 'Client list'])
+@extends('layouts.adminlte', ['title' => 'Appointments', 'breadcrumbs_title' => 'Appointment list'])
 @section('content')
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-12">
                 <div class="card card-outline card-primary">
-                    <div class="card-header">{{ __('Client list') }} <a href="{{ route('admin.clients.create') }}"
+                    <div class="card-header">{{ __('Appointment list') }} <a href="{{ route('admin.appointments.create') }}"
                             class="btn btn-sm btn-primary float-right">New</a></div>
 
                     <div class="card-body">
-                        @if (session()->has('client-success'))
+                        @if (session()->has('appointment-success'))
                             <div class="alert alert-success" role="alert">
-                                {{ session('client-success') }}
+                                {{ session('appointment-success') }}
                             </div>
                         @endif
-                        <table class="table-sm table table-bordered table-striped text-center" id="client-table">
+                        <table class="table-sm table table-bordered table-striped text-center" id="appointment-table">
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Contact name</th>
-                                    <th>Contact E-mail</th>
-                                    <th>Contact phone number</th>
-                                    <th>Company name</th>
-                                    <th>Company address</th>
-                                    <th>Company phone number</th>
+                                    <th>Client Name</th>
+                                    <th>User Name</th>
+                                    <th>Description</th>
+                                    <th>Appt date</th>
                                     <th></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($clients as $client)
-                                    <tr key="{{ $client->id }}">
-                                        <td>{{ $client->id }}</td>
-                                        <td>{{ $client->contact_name }}</td>
-                                        <td>{{ $client->contact_email }}</td>
-                                        <td>{{ $client->contact_phone_number }}</td>
-                                        <td>{{ $client->company_name }}</td>
-                                        <td>{{ $client->company_address }}</td>
-                                        <td>{{ $client->company_phone_number }}</td>
+                                @foreach ($appointments as $appointment)
+                                    <tr key="{{ $appointment->id }}">
+                                        <td>{{ $appointment->id }}</td>
+                                        <td>{{ $appointment->client->contact_name }}</td>
+                                        <td>{{ $appointment->user->name }}</td>
+                                        <td>{{ $appointment->description }}</td>
+                                        <td>{{ $appointment->appointment_date->format('M d, Y') }}</td>
                                         <td>
                                             <div class="dropdown">
                                                 <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="false">
@@ -43,9 +39,9 @@
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right">
                                                     <h6 class="dropdown-header">Options</h6>
-                                                    <a href="{{ route('admin.clients.edit', $client) }}"
+                                                    <a href="{{ route('admin.appointments.edit', $appointment) }}"
                                                         class="dropdown-item bg-gradient-warning"><i class="fas fa-pen mr-4"></i> Edit</a>
-                                                    <form action="{{ route('admin.clients.destroy', $client) }}"
+                                                    <form action="{{ route('admin.appointments.destroy', $appointment) }}"
                                                         class="d-hidden" method="POST">
                                                         @csrf
                                                         @method('delete')
@@ -71,7 +67,7 @@
     <!-- Page specific script -->
     <script>
         $(function() {
-            $("#client-table").DataTable({
+            $("#appointment-table").DataTable({
                 responsive: true
             });
         });

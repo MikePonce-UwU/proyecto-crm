@@ -1,5 +1,5 @@
 <div class="row mb-3">
-    <div class="col-md-6 col-12">
+    <div class="col-md-6 col-12 mb-4 mb-sm-0">
         <div class="input-group">
             <span class="input-group-prepend">
                 <button id="btnRemoveUser" type="button" class="btn btn-danger"><i
@@ -15,7 +15,7 @@
             </select>
         </div>
     </div>
-    <div class="col-md-6 col-12">
+    <div class="col-md-6 col-12 mb-4 mb-sm-0">
         <div class="form-group">
             <select name="role" id="role" class="form-control">
                 <option selected disabled>Select an option</option>

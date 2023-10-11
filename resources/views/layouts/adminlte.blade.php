@@ -69,7 +69,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">{{ $title }}</h1>
+                            <h1 class="m-0">{{ __($title) }}</h1>
                         </div><!-- /.col -->
                         @includeWhen(!request()->routeIs('home'), 'layouts.partials.breadcrumbs', [
                             'breadcrumbs_title' => $breadcrumbs_title ?? '',
@@ -152,7 +152,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     targets: -1,
                     searching: false,
                     orderable: false,
-                }, ]
+                }, ],
+                language: {
+                    url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json',
+                }
             });
         })
     </script>

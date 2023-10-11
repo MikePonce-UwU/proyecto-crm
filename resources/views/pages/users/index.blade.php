@@ -5,7 +5,7 @@
             <div class="col-12">
                 <div class="card card-outline card-primary">
                     <div class="card-header">{{ __('User list') }} <a href="{{ route('admin.users.create') }}"
-                            class="btn btn-sm btn-primary float-right">New</a></div>
+                            class="btn btn-sm btn-primary float-right">{{ __('New') }}</a></div>
 
                     <div class="card-body">
                         @if (session()->has('user-success'))
@@ -52,17 +52,17 @@
                                                     <i class="fas fa-ellipsis-v"></i>
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right">
-                                                    <h6 class="dropdown-header">Options</h6>
+                                                    <h6 class="dropdown-header">{{ __('Options') }}</h6>
                                                     <a href="{{ route('admin.users.edit', $user) }}"
                                                         class="dropdown-item bg-gradient-warning"><i
-                                                            class="fas fa-pen mr-4"></i> Edit</a>
+                                                            class="fas fa-pen mr-4"></i> {{ __('Edit') }}</a>
                                                     <form action="{{ route('admin.users.destroy', $user) }}"
                                                         class="d-hidden" method="POST">
                                                         @csrf
                                                         @method('delete')
                                                         <button type="submit" class="dropdown-item bg-gradient-danger"
                                                             onclick="confirm('Are you sure to do this?');"><i
-                                                                class="fas fa-trash mr-4"></i> Delete</button>
+                                                                class="fas fa-trash mr-4"></i> {{ __('Delete') }}</button>
                                                     </form>
                                                 </div>
                                             </div>
@@ -86,6 +86,5 @@
                 responsive: true
             });
         });
-        
     </script>
 @endpush

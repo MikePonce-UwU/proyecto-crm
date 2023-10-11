@@ -9,12 +9,13 @@
                     <div class="inner">
                         <h3>{{ $citas }}</h3>
 
-                        <p>New appointments</p>
+                        <p>{{ __('New appointments') }}</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-bag"></i>
                     </div>
-                    <a href="{{ route('admin.appointments.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    <a href="{{ route('admin.appointments.index') }}" class="small-box-footer">{{ __('More info') }} <i
+                            class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->
@@ -29,7 +30,8 @@
                     <div class="icon">
                         <i class="ion ion-stats-bars"></i>
                     </div>
-                    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    <a href="#" class="small-box-footer">{{ __('More info') }} <i
+                            class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->
@@ -39,12 +41,12 @@
                     <div class="inner">
                         <h3>{{ $users }}</h3>
 
-                        <p>User Registrations</p>
+                        <p>{{ __('User registration') }}</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-person-add"></i>
                     </div>
-                    <a href="{{ route('admin.users.index') }}" class="small-box-footer">More info <i
+                    <a href="{{ route('admin.users.index') }}" class="small-box-footer">{{ __('More info') }} <i
                             class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
@@ -55,12 +57,12 @@
                     <div class="inner">
                         <h3>{{ $clientes }}</h3>
 
-                        <p>Unique Clients</p>
+                        <p>{{ __('Unique clients') }}</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-pie-graph"></i>
                     </div>
-                    <a href="{{ route('admin.clients.index') }}" class="small-box-footer">More info <i
+                    <a href="{{ route('admin.clients.index') }}" class="small-box-footer">{{ __('More info') }} <i
                             class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>

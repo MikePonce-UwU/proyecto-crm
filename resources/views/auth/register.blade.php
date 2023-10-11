@@ -101,14 +101,15 @@
                 <a href="{{ url('/') }}" class="h1">{{ config('app.name') }}</a>
             </div>
             <div class="card-body">
-                <p class="login-box-msg">Register a new account</p>
+                <p class="login-box-msg">{{ __('Register') }}</p>
 
                 <form action="{{ route('register') }}" method="post">
                     @csrf
                     <div class="input-group mb-3">
                         {{-- <input type="text" class="form-control" placeholder="Full name"> --}}
                         <input id="name" type="text" class="form-control @error('name') is-invalid @enderror"
-                            name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                            placeholder="{{ __('Name') }}" name="name" value="{{ old('name') }}" required
+                            autocomplete="name" autofocus>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-user"></span>
@@ -123,7 +124,8 @@
                     <div class="input-group mb-3">
                         {{-- <input type="email" class="form-control" placeholder="Email"> --}}
                         <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
-                            name="email" value="{{ old('email') }}" required autocomplete="email">
+                            placeholder="{{ __('Email Address') }}" name="email" value="{{ old('email') }}"
+                            required autocomplete="email">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
@@ -139,7 +141,7 @@
                         {{-- <input type="password" class="form-control" placeholder="Password"> --}}
                         <input id="password" type="password"
                             class="form-control @error('password') is-invalid @enderror" name="password" required
-                            autocomplete="new-password">
+                            placeholder="{{ __('Password') }}" autocomplete="new-password">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
@@ -154,7 +156,7 @@
                     <div class="input-group mb-3">
                         {{-- <input type="password" class="form-control" placeholder="Retype password"> --}}
                         <input id="password-confirm" type="password" class="form-control" name="password_confirmation"
-                            required autocomplete="new-password">
+                            placeholder="{{ __('Confirm Password') }}" required autocomplete="new-password">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
@@ -171,8 +173,8 @@
                             </div>
                         </div> --}}
                         <!-- /.col -->
-                        <div class="col-4">
-                            <button type="submit" class="btn btn-primary btn-block">Register</button>
+                        <div class="col">
+                            <button type="submit" class="btn btn-primary btn-block">{{ __('Register') }}</button>
                         </div>
                         <!-- /.col -->
                     </div>
@@ -189,7 +191,7 @@
                     </a>
                 </div> --}}
 
-                <a href="{{ route('login') }}" class="text-center">I already have an account</a>
+                <a href="{{ route('login') }}" class="text-center">{{ __('I already have an account') }}</a>
             </div>
             <!-- /.form-box -->
         </div><!-- /.card -->

@@ -22,8 +22,8 @@
             <div class="navbar-search-block">
                 <form class="form-inline">
                     <div class="input-group input-group-sm">
-                        <input class="form-control form-control-navbar" type="search" placeholder="Menu search"
-                            aria-label="Search">
+                        <input class="form-control form-control-navbar" type="search"
+                            placeholder="{{ __('Menu Search') }}" aria-label="Search">
                         <div class="input-group-append">
                             <button class="btn btn-navbar" type="submit">
                                 <i class="fas fa-search"></i>
@@ -45,9 +45,10 @@
 
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                 @isset(auth()->user()->teams)
-                <h6 class="dropdown-header">Teams</h6>
+                    <h6 class="dropdown-header">{{ __('Teams') }}</h6>
                     @foreach (auth()->user()->teams as $item)
-                        <a href="{{ route('switch.team', $item) }}" class="dropdown-item {{auth()->user()->current_team_id == $item->id ?'disabled text-info' : ''}}">
+                        <a href="{{ route('switch.team', $item) }}"
+                            class="dropdown-item {{ auth()->user()->current_team_id == $item->id ? 'disabled text-info' : '' }}">
                             <i class="fas fa-plus-exclamation-circle"></i>
                             {{ $item->name }}
                         </a>

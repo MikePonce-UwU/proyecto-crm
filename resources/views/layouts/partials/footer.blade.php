@@ -4,6 +4,6 @@
         {{ config('app.name') }}
     </div>
     <!-- Default to the left -->
-    <strong>Copyright &bigstar; 2023 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights
-    reserved.
+    <strong>Copyright &copy; 2023 <a href="https://www.facebook.com/hoorving/">Consultoria Altamirano & Asociados.</a></strong>
+    {{ __('All rights reserved.') }}
 </footer>

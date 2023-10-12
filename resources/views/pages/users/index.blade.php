@@ -20,6 +20,7 @@
                                     <th>name</th>
                                     <th>Email</th>
                                     <th>Role</th>
+                                    <th>Is admin</th>
                                     <th>Verified at</th>
                                     <th>Joined at</th>
                                     <th>Active</th>
@@ -34,7 +35,12 @@
                                         <td>{{ $user->id }}</td>
                                         <td>{{ $user->name }}</td>
                                         <td>{{ $user->email }}</td>
-                                        <td>{{ $user->teams()->firstWhere('team_id', '=', $user->current_team_id)->pivot->role }}
+                                        <td>{{ $user->teams()->firstWhere('team_id', '=', $user->current_team_id)->pivot->role ?? Str::of('<i>Not joined yet</i>')->toHtmlString() }}
+                                        </td>
+                                        <td>
+                                            {{ $user->is_admin
+                                                ? Str::of('<i class="fas fa-check-circle text-success"></i>')->toHtmlString()
+                                                : Str::of('<i class="fas fa-times-circle text-danger"></i>')->toHtmlString() }}
                                         </td>
                                         <td>
                                             {{ $user->email_verified_at

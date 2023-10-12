@@ -9,15 +9,15 @@
                         <form action="{{ route('admin.appointments.store') }}" method="post">
                             {{ csrf_field() }}
                             <fieldset class="row mb-3 border rounded py-4">
-                                <legend class="pl-2">User - Client</legend>
-                                {{-- client data --}}
+                                <legend class="pl-2">User - Customer</legend>
+                                {{-- customer data --}}
                                 <div class="col-md-6 col-12 mb-4 mb-sm-0">
                                     <div class="input-group">
-                                        <select name="client_id" id="client" class="form-control"
-                                            value="{{ old('client_id', '') }}">
+                                        <select name="customer_id" id="customer" class="form-control"
+                                            value="{{ old('customer_id', '') }}">
                                             <option selected disabled>Select one of the options below</option>
-                                            @foreach ($clients as $id => $client)
-                                                <option value="{{ $id }}">{{ $client }}</option>
+                                            @foreach ($customers as $id => $customer)
+                                                <option value="{{ $id }}">{{ $customer }}</option>
                                             @endforeach
                                         </select>
                                         <div class="input-group-append">
@@ -32,7 +32,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                                {{-- client data --}}
+                                {{-- customer data --}}
                                 <div class="col-md-6 col-12 mb-4 mb-sm-0">
                                     <div class="input-group">
                                         <select name="user_id" id="user" class="form-control"
@@ -112,7 +112,7 @@
                                 </div>
                             </fieldset>
                             <div class="row justify-content-end gap-x-2">
-                                <a href="{{ route('admin.clients.index') }}"
+                                <a href="{{ route('admin.appointments.index') }}"
                                     class="btn btn-sm btn-outline-danger">Cancel</a>
                                 <button class="btn btn-sm btn-success" type="submit">Submit</button>
                             </div>

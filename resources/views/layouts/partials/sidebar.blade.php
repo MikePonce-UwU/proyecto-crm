@@ -70,11 +70,11 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('admin.clients.index') }}"
-                        class="nav-link {{ request()->routeIs('admin.clients.*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.customers.index') }}"
+                        class="nav-link {{ request()->routeIs('admin.customers.*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-users"></i>
                         <p>
-                            {{ __('Clients') }}
+                            {{ __('Customers') }}
                             {{-- <i class="right fas fa-angle-left"></i> --}}
                         </p>
                     </a>

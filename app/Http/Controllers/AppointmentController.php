@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\Client;
+use App\Models\Customer;
 use App\Models\Appointment;
 use App\Http\Requests\StoreAppointmentRequest;
 use App\Http\Requests\UpdateAppointmentRequest;
@@ -32,7 +32,7 @@ class AppointmentController extends Controller
     {
         //
         return view('pages.appointments.create', [
-            'clients' => Client::all()->pluck('contact_name', 'id'),
+            'customers' => Customer::all()->pluck('contact_name', 'id'),
             'users' => User::all()->pluck('name', 'id'),
         ]);
     }
@@ -74,7 +74,7 @@ class AppointmentController extends Controller
         //
         return view('pages.appointments.edit', [
             'appointment' => $appointment,
-            'clients' => Client::all()->pluck('contact_name', 'id'),
+            'customers' => Customer::all()->pluck('contact_name', 'id'),
             'users' => User::all()->pluck('name', 'id'),
         ]);
     }

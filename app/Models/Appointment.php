@@ -15,7 +15,7 @@ class Appointment extends Model
     protected $fillable = [
         'user_id',
         'team_id',
-        'client_id',
+        'customer_id',
         'description',
         'appointment_date',
     ];
@@ -36,9 +36,9 @@ class Appointment extends Model
     {
         return $this->belongsTo(Team::class);
     }
-    public function client()
+    public function customer()
     {
-        return $this->belongsTo(Client::class);
+        return $this->belongsTo(Customer::class);
     }
     public function user()
     {

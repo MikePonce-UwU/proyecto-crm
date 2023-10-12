@@ -5,7 +5,7 @@
             <div class="col-12">
                 <div class="card card-outline card-primary">
                     <div class="card-header">{{ __('Appointment list') }} <a href="{{ route('admin.appointments.create') }}"
-                            class="btn btn-sm btn-primary float-right">New</a></div>
+                            class="btn btn-sm btn-primary float-right">{{ __('New') }}</a></div>
 
                     <div class="card-body">
                         @if (session()->has('appointment-success'))
@@ -17,7 +17,7 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Client Name</th>
+                                    <th>Customer Name</th>
                                     <th>User Name</th>
                                     <th>Description</th>
                                     <th>Appt date</th>
@@ -28,26 +28,29 @@
                                 @foreach ($appointments as $appointment)
                                     <tr key="{{ $appointment->id }}">
                                         <td>{{ $appointment->id }}</td>
-                                        <td>{{ $appointment->client->contact_name }}</td>
+                                        <td>{{ $appointment->customer->contact_name }}</td>
                                         <td>{{ $appointment->user->name }}</td>
                                         <td>{{ $appointment->description }}</td>
                                         <td>{{ $appointment->appointment_date }}</td>
                                         <td>
                                             <div class="dropdown">
-                                                <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="false">
+                                                <a href="#" class="dropdown-toggle" role="button"
+                                                    data-toggle="dropdown" aria-expanded="false">
                                                     <i class="fas fa-ellipsis-v"></i>
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right">
-                                                    <h6 class="dropdown-header">Options</h6>
+                                                    <h6 class="dropdown-header">{{ __('Options') }}</h6>
                                                     <a href="{{ route('admin.appointments.edit', $appointment) }}"
-                                                        class="dropdown-item bg-gradient-warning"><i class="fas fa-pen mr-4"></i> Edit</a>
+                                                        class="dropdown-item bg-gradient-warning"><i
+                                                            class="fas fa-pen mr-4"></i> {{ __('Edit') }}</a>
                                                     <form action="{{ route('admin.appointments.destroy', $appointment) }}"
                                                         class="d-hidden" method="POST">
                                                         @csrf
                                                         @method('delete')
-                                                        <button type="submit" class="dropdown-item bg-gradient-danger opacity-25"
+                                                        <button type="submit"
+                                                            class="dropdown-item bg-gradient-danger opacity-25"
                                                             onclick="confirm('Are you sure to do this?');"><i
-                                                                class="fas fa-trash mr-4"></i> Delete</button>
+                                                                class="fas fa-trash mr-4"></i> {{ __('Delete') }}</button>
                                                     </form>
                                                 </div>
                                             </div>

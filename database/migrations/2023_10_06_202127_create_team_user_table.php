@@ -16,17 +16,17 @@ class CreateTeamUserTable extends Migration
         Schema::create('team_user', function (Blueprint $table) {
             $table->foreignId('team_id')->constrained();
             $table->foreignId('user_id')->constrained();
-            $table->string('role');
+            $table->string('role')->default('collaborator');
             $table->timestamps();
         });
         Schema::table('users', function (Blueprint $table) {
-            $table->foreignId('current_team_id')->nullable()->references('id')->on('teams');
+            $table->foreignId('current_team_id')->references('id')->on('teams');
         });
-        Schema::table('clients', function (Blueprint $table) {
-            $table->foreignId('team_id')->nullable()->constrained();
+        Schema::table('customers', function (Blueprint $table) {
+            $table->foreignId('team_id')->constrained();
         });
         Schema::table('appointments', function (Blueprint $table) {
-            $table->foreignId('team_id')->nullable()->constrained();
+            $table->foreignId('team_id')->constrained();
         });
     }
 

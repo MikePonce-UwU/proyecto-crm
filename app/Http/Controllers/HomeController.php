@@ -24,7 +24,7 @@ class HomeController extends Controller
     public function index()
     {
         $citas = \App\Models\Appointment::count();
-        $clientes = \App\Models\Client::count();
+        $clientes = \App\Models\Customer::count();
         $users = \App\Models\User::count();
         return view('home', compact('citas', 'clientes', 'users'));
     }

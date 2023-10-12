@@ -57,12 +57,12 @@
                     <div class="inner">
                         <h3>{{ $clientes }}</h3>
 
-                        <p>{{ __('Unique clients') }}</p>
+                        <p>{{ __('Unique customer') }}</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-pie-graph"></i>
                     </div>
-                    <a href="{{ route('admin.clients.index') }}" class="small-box-footer">{{ __('More info') }} <i
+                    <a href="{{ route('admin.customers.index') }}" class="small-box-footer">{{ __('More info') }} <i
                             class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>

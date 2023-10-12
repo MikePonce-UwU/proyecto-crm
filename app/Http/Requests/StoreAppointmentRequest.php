@@ -26,7 +26,7 @@ class StoreAppointmentRequest extends FormRequest
         return [
             //
             'user_id' => ['required', 'exists:users,id'],
-            'client_id' => ['required', 'exists:clients,id'],
+            'customer_id' => ['required', 'exists:customers,id'],
             'description' => ['required'],
             'appointment_date' => ['required', 'date'],
         ];

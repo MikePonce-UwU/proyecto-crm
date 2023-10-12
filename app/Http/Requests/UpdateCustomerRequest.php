@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateClientRequest extends FormRequest
+class UpdateCustomerRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,11 +26,10 @@ class UpdateClientRequest extends FormRequest
         return [
             //
             'contact_name' => ['required'],
-            'contact_email' => ['required', 'unique:clients,contact_email,' . $this->client->id],
+            'contact_email' => ['required', 'unique:customers,contact_email,' . $this->customer->id],
             'contact_phone_number' => ['required'],
-            'company_name' => ['required'],
-            'company_address' => ['required'],
-            'company_phone_number' => ['required'],
+            'contact_address' => ['required'],
+            'status' => ['required'],
         ];
     }
 }

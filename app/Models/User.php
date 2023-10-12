@@ -2,14 +2,15 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Str;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable implements MustVerifyEmail 
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
@@ -43,9 +44,15 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function getIsAdminAttribute()
+    {
+        return Str::contains($this->attributes['email'], '@admin.com');
+    }
+
     public function setPasswordAttribute($input)
     {
-        if($input){
+        if ($input) {
             $this->attributes['password'] = app('hash')->needsRehash($input) ? bcrypt($input) : $input;
         }
     }
@@ -58,7 +65,8 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsTo(Team::class, 'current_team_id');
     }
 
-    public function setCurrentTeamRoleAttribute(){
+    public function setCurrentTeamRoleAttribute()
+    {
         $role = $this->teams()->firstWhere('pivot.team_id', '=', $this->current_team_id);
         return $role;
     }

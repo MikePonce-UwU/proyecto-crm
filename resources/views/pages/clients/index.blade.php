@@ -23,6 +23,7 @@
                                     <th>Company name</th>
                                     <th>Company address</th>
                                     <th>Company phone number</th>
+                                    <th>Sold</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -36,20 +37,29 @@
                                         <td>{{ $client->company_name }}</td>
                                         <td>{{ $client->company_address }}</td>
                                         <td>{{ $client->company_phone_number }}</td>
+                                        <td><input type="checkbox" id="{{ $client->id }}"
+                                                {{ $client->sold ? 'checked' : '' }} disabled></td>
                                         <td>
                                             <div class="dropdown">
-                                                <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="false">
+                                                <a href="#" class="dropdown-toggle" role="button"
+                                                    data-toggle="dropdown" aria-expanded="false">
                                                     <i class="fas fa-ellipsis-v"></i>
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right">
                                                     <h6 class="dropdown-header">Options</h6>
+                                                    <a href="{{ route('admin.clients.toggle-sold', $client) }}"
+                                                        class="dropdown-item bg-gradient-default"><i
+                                                            class="fas fa-toggle-{{ $client->sold ? 'on' : 'off' }} mr-4"></i>
+                                                        Toggle sold field</a>
                                                     <a href="{{ route('admin.clients.edit', $client) }}"
-                                                        class="dropdown-item bg-gradient-warning"><i class="fas fa-pen mr-4"></i> Edit</a>
+                                                        class="dropdown-item bg-gradient-warning"><i
+                                                            class="fas fa-pen mr-4"></i> Edit</a>
                                                     <form action="{{ route('admin.clients.destroy', $client) }}"
                                                         class="d-hidden" method="POST">
                                                         @csrf
                                                         @method('delete')
-                                                        <button type="submit" class="dropdown-item bg-gradient-danger opacity-25"
+                                                        <button type="submit"
+                                                            class="dropdown-item bg-gradient-danger opacity-25"
                                                             onclick="confirm('Are you sure to do this?');"><i
                                                                 class="fas fa-trash mr-4"></i> Delete</button>
                                                     </form>

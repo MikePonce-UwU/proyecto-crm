@@ -20,20 +20,18 @@ class Appointment extends Model
         'appointment_date',
     ];
     protected $casts = [
-        'appointment_date' => 'date',
+        'appointment_date' => 'datetime:Y-m-d H:i:s',
     ];
 
-    // public function getAppointmentDateAttribute()
+    // public function getAppointmentDateAttribute($value)
     // {
-    //     $date = new Carbon($this->attributes['appointment_date']);
-    //     var_dump($date);
-    //     return $date->format('Y-d-m');
+    //     return Carbon::parse($value)->format('Y-m-d');
     // }
-    public function setAppointmentDateAttribute($value)
-    {
-        $date = new Carbon($value);
-        $this->attributes['appointment_date'] = $date->format('Y-m-d');
-    }
+    // public function setAppointmentDateAttribute($value)
+    // {
+    //     $date = new Carbon($value);
+    //     $this->attributes['appointment_date'] = $date->format('Y-m-d');
+    // }
     public function team()
     {
         return $this->belongsTo(Team::class);

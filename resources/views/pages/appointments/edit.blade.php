@@ -80,18 +80,15 @@
                                 </div>
                                 {{-- appointment_date --}}
                                 <div class="col-md-6 col-12 mb-4 mb-md-0">
-                                    <div class="input-group">
-                                        <input id="appointment_date" type="date"
-                                            class="form-control @error('appointment_date') is-invalid @enderror"
-                                            name="appointment_date"
-                                            value="{{ old('appointment_date', $appointment->appointment_date->format('Y-d-m')) }}"
-                                            placeholder="Insert the appointment's date">
-                                        {{-- <div class="input-group-append" data-target="#appointment-date"
+                                    <div class="input-group date" id="appointmentdatetime" data-target-input="nearest">
+                                        <input type="text" name="appointment_date"
+                                            value="{{ old('appointment_date', $appointment->appointment_date) }}"
+                                            class="form-control datetimepicker-input @error('appointment_date') is-invalid @enderror"
+                                            data-target="#appointmentdatetime" />
+                                        <div class="input-group-append" data-target="#appointmentdatetime"
                                             data-toggle="datetimepicker">
-                                            <div class="input-group-text">
-                                                <span class="fas fa-calendar"></span>
-                                            </div>
-                                        </div> --}}
+                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                        </div>
                                         @error('appointment_date')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -112,10 +109,13 @@
         </div>
     </div>
 @endsection
-{{-- @push('scripts')
+@push('scripts')
     <script>
-        $('#appointment-date').datetimepicker({
-            format: 'L'
+        $('#appointmentdatetime').datetimepicker({
+            format: "YYYY-MM-DD HH:mm:ss",
+            icons: {
+                time: 'far fa-clock'
+            }
         });
     </script>
-@endpush --}}
+@endpush

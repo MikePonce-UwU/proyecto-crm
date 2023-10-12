@@ -31,7 +31,7 @@
                                         <td>{{ $appointment->client->contact_name }}</td>
                                         <td>{{ $appointment->user->name }}</td>
                                         <td>{{ $appointment->description }}</td>
-                                        <td>{{ $appointment->appointment_date->format('M d, Y') }}</td>
+                                        <td>{{ $appointment->appointment_date }}</td>
                                         <td>
                                             <div class="dropdown">
                                                 <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="false">

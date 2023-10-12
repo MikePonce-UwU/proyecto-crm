@@ -21,6 +21,7 @@ class CreateClientsTable extends Migration
             $table->string('company_name');
             $table->string('company_address');
             $table->string('company_phone_number');
+            $table->boolean('sold')->default(false);
             $table->timestamps();
             $table->softDeletes();
         });

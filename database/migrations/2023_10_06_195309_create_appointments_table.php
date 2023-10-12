@@ -18,7 +18,7 @@ class CreateAppointmentsTable extends Migration
             $table->foreignId('user_id')->constrained();
             $table->foreignId('client_id')->constrained();
             $table->string('description');
-            $table->date('appointment_date');
+            $table->dateTime('appointment_date'); // contains hours
             $table->timestamps();
             $table->softDeletes();
         });

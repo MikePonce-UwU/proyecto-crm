@@ -68,7 +68,7 @@ class Appointment extends Model
                     });
                 }
             
-            } else if (auth()->user()->hasRole('Salesmen')){
+            } else if (auth()->user()->hasRole(['Salesmen', 'Team Collaborator', 'Team Supervisor', 'Independiente'])){
                 static::addGlobalScope('team', function (Builder $query) {
                     $query
                         ->where('team_id', auth()->user()->myTeam->id)

@@ -1,0 +1,38 @@
+Credenciales:
+
+
+'name' => 'William Icaza',
+'email' => 'william@gmail.com',
+'password' => bcrypt('william'),
+
+'name' => 'Maria de los Angeles',
+'email' => 'maria@gmail.com',
+'password' => bcrypt('maria'),
+
+'name' => 'Kevin',
+'email' => 'kevin@gmail.com',
+'password' => bcrypt('kevin'),
+
+'name' => 'Byron Quintanilla',
+'email' => 'byron@gmail.com',
+'password' => bcrypt('byron'),
+
+'name' => 'Vanessa',
+'email' => 'vanessa@gmail.com',
+'password' => bcrypt('vanessa'),
+
+
+
+'name' => 'Alfredo Monjaret',
+'email' => 'alfredo@gmail.com',
+'password' => bcrypt('alfredo'),
+
+'name' => 'Tony Car',
+'email' => 'tony@gmail.com',
+'password' => bcrypt('tony'),
+
+
+
+'name' => 'EZ Solar',
+'email' => 'ezsolar@gmail.com',
+'password' => bcrypt('ezsolar'),

@@ -13,11 +13,15 @@
                                 {{-- customer data --}}
                                 <div class="col-md-6 col-12 mb-4 mb-sm-0">
                                     <div class="input-group">
+                                        {{-- @dd(auth()->user()->is_admin) --}}
                                         <select name="customer_id" id="customer" class="form-control"
                                             value="{{ old('customer_id', '') }}">
                                             <option selected disabled>Select one of the options below</option>
-                                            @foreach ($customers as $id => $customer)
-                                                <option value="{{ $id }}">{{ $customer }}</option>
+                                            @foreach ($customers as $customer)
+                                                <option value="{{ $customer->id }}">
+                                                    {{ $customer->first_name }}
+                                                    {{ $customer->user->name ? '(' . $customer->user->name . ')' : '' }}
+                                                </option>
                                             @endforeach
                                         </select>
                                         <div class="input-group-append">
@@ -25,7 +29,7 @@
                                                 <span class="fas fa-user-plus"></span>
                                             </div>
                                         </div>
-                                        @error('contact_name')
+                                        @error('customer_id')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -36,20 +40,30 @@
                                 <div class="col-md-6 col-12 mb-4 mb-sm-0">
                                     <div class="input-group">
                                         <select name="user_id" id="user" class="form-control"
-                                            value="{{ old('user_id', '') }}">
-                                            <option selected disabled>Select one of the options below</option>
-                                            @foreach ($users as $id => $user)
-                                                <option value="{{ $id }}"
-                                                    {{ auth()->id() === $id ? 'selected' : '' }}>{{ $user }}
+                                            value="{{ old('user_id', auth()->id()) }}"
+                                            {{ !auth()->user()->hasRole('Admin')? 'readonly': '' }}>
+                                            @if (auth()->user()->is_admin)
+                                                <option selected disabled>Select one of the options below</option>
+                                                @foreach ($users as $user)
+                                                    {{-- @dump($user->current_team_id) --}}
+                                                    <option value="{{ $user->id }}"
+                                                        {{ auth()->id() === $user->id ? 'selected' : '' }}>
+                                                        {{ $user->name }}
+                                                        {{-- ({{ $user->currentTeam->name }}) --}}
+                                                        {{ $user->current_team_id !== null ? '(' . $user->currentTeam->name . ')' : '' }}
+                                                    </option>
+                                                @endforeach
+                                            @else
+                                                <option value="{{ auth()->id() }}" selected>{{ auth()->user()->name }}
                                                 </option>
-                                            @endforeach
+                                            @endif
                                         </select>
                                         <div class="input-group-append">
                                             <div class="input-group-text">
                                                 <span class="fas fa-user-friends"></span>
                                             </div>
                                         </div>
-                                        @error('contact_name')
+                                        @error('user_id')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -82,7 +96,8 @@
                                         <input type="text" name="appointment_date"
                                             value="{{ old('appointment_date', '') }}"
                                             class="form-control datetimepicker-input @error('appointment_date') is-invalid @enderror"
-                                            data-target="#appointmentdatetime" />
+                                            data-target="#appointmentdatetime"
+                                            placeholder="Select a date from the datepicker" />
                                         <div class="input-group-append" data-target="#appointmentdatetime"
                                             data-toggle="datetimepicker">
                                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>

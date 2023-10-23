@@ -44,14 +44,40 @@ class Appointment extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    // public static function boot(): void
+    // {
+    //     parent::boot();
+    //     if (!auth()->user()->is_admin || auth()->user()->currentGlobalRole !== 'Salesmen') {
+    //         if (auth()->check()) {
+    //             static::addGlobalScope('user', fn (Builder $query) => $query);
+    //         }
+    //     }
+    // }
     protected static function booted(): void
     {
-        if (auth()->check()) {
-            static::addGlobalScope('team', function (Builder $query) {
-                $query->where('team_id', auth()->user()->current_team_id);
-                // or with a `team` relationship defined:
-                // $query->whereBelongsTo(auth()->user()->team);
-            });
+        if (!auth()->user()->is_admin) {
+            if (!auth()->user()->hasAnyRole(['Admin', 'Main Salesman', 'Salesmen'])) {
+                if (auth()->check()) {
+                    static::addGlobalScope('team', function (Builder $query) {
+                        $query
+                            ->where('team_id', auth()->user()->current_team_id)
+                            ->where('user_id', auth()->id());
+                        // or with a `team` relationship defined:
+                        // $query->whereBelongsTo(auth()->user()->team);
+                    });
+                }
+            
+            } else if (auth()->user()->hasRole('Salesmen')){
+                static::addGlobalScope('team', function (Builder $query) {
+                    $query
+                        ->where('team_id', auth()->user()->myTeam->id)
+                        /*->where('user_id', auth()->id())*/;
+                    // or with a `team` relationship defined:
+                    // $query->whereBelongsTo(auth()->user()->team);
+                });
+            }
         }
     }
+    
 }

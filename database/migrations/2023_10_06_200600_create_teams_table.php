@@ -16,6 +16,7 @@ class CreateTeamsTable extends Migration
         Schema::create('teams', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->foreignId('manager_id')->references('id')->on('users');
             $table->timestamps();
             $table->softDeletes();
         });

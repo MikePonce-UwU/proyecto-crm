@@ -5,10 +5,18 @@ namespace App\Http\Controllers;
 use App\Models\Team;
 use App\Http\Requests\StoreTeamRequest;
 use App\Http\Requests\UpdateTeamRequest;
+use App\Models\Role;
 use App\Models\User;
 
 class TeamController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['role:Admin|Main Salesman'], ['only' => ['index']]);
+        $this->middleware(['role:Admin'], ['only' => ['store', 'create', 'update', 'edit']]);
+        $this->middleware(['role:Admin'], ['only' => ['destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -30,7 +38,10 @@ class TeamController extends Controller
     public function create()
     {
         //
-        return view('pages.teams.create');
+        $users = User::whereHas('roles', function ($query) {
+            return $query->where('role_id', 3);
+        })->get()->pluck('name', 'id');
+        return view('pages.teams.create', compact('users'));
     }
 
     /**
@@ -46,9 +57,15 @@ class TeamController extends Controller
         if (count(json_decode($request->user_list)) >= 1) {
             foreach (json_decode($request->user_list) as $user) {
                 $tenant->users()->attach($user->user_id, ['role' => $user->role]);
-                
+
                 $local_user = User::findOrFail($user->user_id);
                 $local_user->update(['current_team_id' => $tenant->id]);
+                // $local_user->currentRole()->dissociate();
+                // if ($user->role == 'supervisor')
+                //     $local_user->currentRole()->associate(Role::firstWhere('name', 'Team Supervisor'));
+                // else
+                //     $local_user->currentRole()->associate(Role::firstWhere('name', 'Team Collaborator'));
+                // $local_user->save();
             }
         }
 
@@ -74,9 +91,10 @@ class TeamController extends Controller
      */
     public function edit(Team $team)
     {
-        // dd($team->users->contains(auth()->id()));
-        // $associated = $team->users->contains(auth()->id());
-        return view('pages.teams.edit', ['team' => $team]);
+        $users = User::whereHas('roles', function ($query) {
+            return $query->where('role_id', 3);
+        })->get()->pluck('name', 'id');
+        return view('pages.teams.edit', ['team' => $team, 'users' => $users]);
     }
 
     /**
@@ -89,24 +107,21 @@ class TeamController extends Controller
     public function update(UpdateTeamRequest $request, Team $team)
     {
         $user_list = json_decode($request->user_list);
-        // $user_list = $user_list->filter(fn($key) => $key = $key);
-        // dd($user_list);
-        // dd($request->all());
         $team->update($request->validated());
         $team->users()->sync([]);
         if (count($user_list) >= 1) {
-            foreach ($user_list as $key => $user) {
-                // var_dump($user);
-                // if($c = $team->users()->where('id', $user->user_id)){
+            foreach ($user_list as $key => $_user) {
+                $team->users()->attach($_user->user_id, ['role' => $_user->role]);
+                $u = \App\Models\User::findOrFail($_user->user_id);
+                $u->currentTeam()->dissociate();
+                $u->currentTeam()->associate($team);
 
-                //     $team->users()->detach($user->user_id);
-                // }
-
-                $team->users()->attach($user->user_id, ['role' => $user->role]);
-                $u = \App\Models\User::findOrFail($user->user_id);
-                $u->currentTeam()->dissociate();                
-                $u->currentTeam()->associate($team);       
-                $u->save();         
+                // $u->currentRole()->dissociate();
+                // if ($_user->role == 'supervisor')
+                //     $u->currentRole()->associate(Role::firstWhere('name', 'Team Supervisor'));
+                // else
+                //     $u->currentRole()->associate(Role::firstWhere('name', 'Team Collaborator'));
+                // $u->save();
             }
         }
         return redirect()->route('admin.teams.index')->with('team-success', 'Team updated successfully');
@@ -121,17 +136,23 @@ class TeamController extends Controller
     public function destroy(Team $team)
     {
         //
-        foreach ($team->members as $user) {
-            # code...
-            $user->currentTeam()->dissociate();
+        if ($team->members !== null && count($team->members) > 0) {
+            foreach ($team->members as $user) {
+                # code...
+                $user->currentTeam()->dissociate();
+            }
         }
-        foreach ($team->clients as $client) {
-            # code...
-            $client->team()->dissociate();
+        if ($team->clients !== null && count($team->clients) > 0) {
+            foreach ($team->clients as $client) {
+                # code...
+                $client->team()->dissociate();
+            }
         }
-        foreach ($team->appointments as $appointment) {
-            # code...
-            $appointment->team()->dissociate();
+        if ($team->appointments !== null && count($team->appointments) > 0) {
+            foreach ($team->appointments as $appointment) {
+                # code...
+                $appointment->team()->dissociate();
+            }
         }
 
         $team->delete();

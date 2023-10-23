@@ -14,8 +14,10 @@
                     <div class="icon">
                         <i class="ion ion-bag"></i>
                     </div>
-                    <a href="{{ route('admin.appointments.index') }}" class="small-box-footer">{{ __('More info') }} <i
-                            class="fas fa-arrow-circle-right"></i></a>
+                    @role('Admin|Main Salesman|Team Supervisor|Team Collaborator|Independiente')
+                        <a href="{{ route('admin.appointments.index') }}" class="small-box-footer">{{ __('More info') }} <i
+                                class="fas fa-arrow-circle-right"></i></a>
+                    @endrole
                 </div>
             </div>
             <!-- ./col -->
@@ -46,8 +48,10 @@
                     <div class="icon">
                         <i class="ion ion-person-add"></i>
                     </div>
-                    <a href="{{ route('admin.users.index') }}" class="small-box-footer">{{ __('More info') }} <i
-                            class="fas fa-arrow-circle-right"></i></a>
+                    @role('Admin|Main Salesman')
+                        <a href="{{ route('admin.users.index') }}" class="small-box-footer">{{ __('More info') }} <i
+                                class="fas fa-arrow-circle-right"></i></a>
+                    @endrole
                 </div>
             </div>
             <!-- ./col -->
@@ -62,11 +66,24 @@
                     <div class="icon">
                         <i class="ion ion-pie-graph"></i>
                     </div>
-                    <a href="{{ route('admin.customers.index') }}" class="small-box-footer">{{ __('More info') }} <i
-                            class="fas fa-arrow-circle-right"></i></a>
+                    @role('Admin|Main Salesman|Team Supervisor|Team Collaborator|Independiente')
+                        <a href="{{ route('admin.customers.index') }}" class="small-box-footer">{{ __('More info') }} <i
+                                class="fas fa-arrow-circle-right"></i></a>
+                    @endrole
                 </div>
             </div>
             <!-- ./col -->
+        </div>
+        <div class="row mt-3">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        @if (session()->has('message'))
+                            {{ session('message') }}
+                        @endif
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 @endsection

@@ -40,21 +40,27 @@
 
             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false" v-pre>
-                {{ Auth::user()->name }}
+                {{ Auth::user()->first_name }}
             </a>
 
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                @isset(auth()->user()->teams)
+                @if (!auth()->user()->is_admin)
                     <h6 class="dropdown-header">{{ __('Teams') }}</h6>
-                    @foreach (auth()->user()->teams as $item)
-                        <a href="{{ route('switch.team', $item) }}"
-                            class="dropdown-item {{ auth()->user()->current_team_id == $item->id ? 'disabled text-info' : '' }}">
-                            <i class="fas fa-plus-exclamation-circle"></i>
-                            {{ $item->name }}
-                        </a>
-                    @endforeach
-                @endisset
-                <div class="dropdown-divider"></div>
+                    @if (count(auth()->user()->teams) > 0)
+
+                        @foreach (auth()->user()->teams as $item)
+                            <a href="{{ route('switch.team', $item) }}"
+                                class="dropdown-item {{ auth()->user()->current_team_id == $item->id ? 'disabled text-info' : '' }}">
+                                <i class="fas fa-plus-exclamation-circle"></i>
+                                {{ $item->name }}
+                            </a>
+                        @endforeach
+                        <div class="dropdown-divider"></div>
+                    @endif
+                @endif
+                <a class="dropdown-item" href="{{ route('profile') }}">
+                    <i class="fas fa-user"></i> {{ __('Profile') }}
+                </a>
                 <a class="dropdown-item" href="{{ route('logout') }}"
                     onclick="event.preventDefault();
                                  document.getElementById('logout-form').submit();">

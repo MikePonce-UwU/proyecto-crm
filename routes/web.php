@@ -20,10 +20,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login');
 });
 
-Auth::routes(['verify' => true]);
+Auth::routes(['verify' => true, 'register' => false]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/switch-team/{team}', function (?Team $team) {
@@ -31,8 +31,8 @@ Route::get('/switch-team/{team}', function (?Team $team) {
     auth()->user()->save();
     return back()->with('success', 'Team has been changed successfully to ' . $team->name);
 })->name('switch.team');
-Route::get('/toggle-client/{client}', function (?Client $client) {
-    $client->sold = !$client->sold;
-    $client->save();
-    return back()->with('client-success', 'Client has been sold today: ' . $client->contact_name);
-})->name('admin.clients.toggle-sold');
+// Route::get('/toggle-client/{client}', function (?Client $client) {
+//     $client->sold = !$client->sold;
+//     $client->save();
+//     return back()->with('client-success', 'Client has been sold today: ' . $client->contact_name);
+// })->name('admin.clients.toggle-sold');

@@ -25,11 +25,28 @@ class UpdateCustomerRequest extends FormRequest
     {
         return [
             //
-            'contact_name' => ['required'],
-            'contact_email' => ['required', 'unique:customers,contact_email,' . $this->customer->id],
-            'contact_phone_number' => ['required'],
-            'contact_address' => ['required'],
+            'first_name' => ['required'],
+            'last_name' => ['required'],
+            'main_address' => ['required'],
+            'secondary_address' => [''],
+            'city' => ['required'],
+            'state' => ['required'],
+            'zip_code' => ['required'],
+            'county' => ['required'],
+            'phone_number' => ['required'],
+            'owner_renter' => ['required'],
+            'credit_rating' => ['required'],
+            'home_value' => ['required'],
+            'income' => ['required'],
+            'age' => ['required'],
+            'birth_month' => ['required'],
+            // 'contact_name' => ['required'],
+            // 'contact_email' => ['required', 'unique:customers,contact_email,' . $this->customer->id],
+            // 'contact_phone_number' => ['required'],
+            // 'contact_address' => ['required'],
+            'foto' => [],
             'status' => ['required'],
+            'user_id' => ['required'],
         ];
     }
 }

@@ -8,13 +8,13 @@ use App\Http\Requests\UpdateUserRequest;
 
 class UserController extends Controller
 {
-    public $users;
-    public $columns;
-
     public function __construct()
     {
-        $this->users = User::with('currentTeam')->get();
+        $this->middleware(['role:Admin|Main Salesman'], ['only' => ['index']]);
+        $this->middleware(['role:Admin'], ['only' => ['store', 'create', 'update', 'edit']]);
+        $this->middleware(['role:Admin'], ['only' => ['destroy']]);
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -23,8 +23,9 @@ class UserController extends Controller
     public function index()
     {
         //
+        $users = auth()->user()->is_admin ? User::all() : User::with('currentTeam')->get();
         return view('pages.users.index', [
-            'users' => $this->users,
+            'users' => $users,
         ]);
     }
 
@@ -50,7 +51,10 @@ class UserController extends Controller
     public function store(StoreUserRequest $request)
     {
         //
-        User::create($request->validated());
+        // return dd($request->validated());
+        $roles = $request->roles;
+        $user = User::create($request->validated());
+        $user->assignRole($roles);
 
         return redirect()->route('admin.users.index')->with('user-success', 'User successfully created');
     }
@@ -78,6 +82,7 @@ class UserController extends Controller
         return view('pages.users.edit', [
             'user' => $user,
         ]);
+        // in_array
     }
 
     /**
@@ -90,7 +95,9 @@ class UserController extends Controller
     public function update(UpdateUserRequest $request, User $user)
     {
         //
+        // return dd($request->roles);
         $user->update($request->validated());
+        $user->syncRoles($request->roles);
         return redirect()->route('admin.users.index')->with('user-success', 'User successfully updated');
     }
 

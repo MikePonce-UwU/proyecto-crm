@@ -4,8 +4,12 @@
         <div class="row justify-content-center">
             <div class="col-12">
                 <div class="card card-outline card-primary">
-                    <div class="card-header">{{ __('Appointment list') }} <a href="{{ route('admin.appointments.create') }}"
-                            class="btn btn-sm btn-primary float-right">{{ __('New') }}</a></div>
+                    <div class="card-header">{{ __('Appointment list') }}
+                        @role('Admin|Team Supervisor|Team Collaborator|Independiente')
+                            <a href="{{ route('admin.appointments.create') }}"
+                                class="btn btn-sm btn-primary float-right">{{ __('New') }}</a>
+                        @endrole
+                    </div>
 
                     <div class="card-body">
                         @if (session()->has('appointment-success'))
@@ -28,8 +32,9 @@
                                 @foreach ($appointments as $appointment)
                                     <tr key="{{ $appointment->id }}">
                                         <td>{{ $appointment->id }}</td>
-                                        <td>{{ $appointment->customer->contact_name }}</td>
-                                        <td>{{ $appointment->user->name }}</td>
+                                        <td>{{ $appointment->customer->first_name . ' ' . $appointment->customer->last_name[0] . '.' }}
+                                        </td>
+                                        <td>{{ $appointment->user->first_name }}</td>
                                         <td>{{ $appointment->description }}</td>
                                         <td>{{ $appointment->appointment_date }}</td>
                                         <td>
@@ -40,18 +45,22 @@
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right">
                                                     <h6 class="dropdown-header">{{ __('Options') }}</h6>
-                                                    <a href="{{ route('admin.appointments.edit', $appointment) }}"
-                                                        class="dropdown-item bg-gradient-warning"><i
-                                                            class="fas fa-pen mr-4"></i> {{ __('Edit') }}</a>
-                                                    <form action="{{ route('admin.appointments.destroy', $appointment) }}"
-                                                        class="d-hidden" method="POST">
-                                                        @csrf
-                                                        @method('delete')
-                                                        <button type="submit"
-                                                            class="dropdown-item bg-gradient-danger opacity-25"
-                                                            onclick="confirm('Are you sure to do this?');"><i
-                                                                class="fas fa-trash mr-4"></i> {{ __('Delete') }}</button>
-                                                    </form>
+                                                    @role('Admin|Team Supervisor|Team Collaborator|Independiente')
+                                                        <a href="{{ route('admin.appointments.edit', $appointment) }}"
+                                                            class="dropdown-item bg-gradient-warning"><i
+                                                                class="fas fa-pen mr-4"></i> {{ __('Edit') }}</a>
+                                                    @endrole
+                                                    @role('Admin')
+                                                        <form action="{{ route('admin.appointments.destroy', $appointment) }}"
+                                                            class="d-hidden" method="POST">
+                                                            @csrf
+                                                            @method('delete')
+                                                            <button type="submit"
+                                                                class="dropdown-item bg-gradient-danger opacity-25"
+                                                                onclick="confirm('Are you sure to do this?');"><i
+                                                                    class="fas fa-trash mr-4"></i> {{ __('Delete') }}</button>
+                                                        </form>
+                                                    @endrole
                                                 </div>
                                             </div>
                                         </td>

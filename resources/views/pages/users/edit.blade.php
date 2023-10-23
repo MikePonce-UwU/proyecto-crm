@@ -78,6 +78,42 @@
                                     </div>
                                 </div>
                             </fieldset>
+                            <fieldset class="row mb-3 border rounded py-4">
+                                <legend class="pl-2">Role</legend>
+                                {{-- role --}}
+                                {{-- @dd(auth()->user()->roles) --}}
+                                <div class="input-group col-md-6 col-12 mb-4 mb-sm-0">
+                                    {{-- <input type="email" class="form-control" placeholder="Email"> --}}
+                                    <div class="col-12 mb-4 mb-sm-0">
+                                        <div class="form-inline">
+                                            @foreach (\App\Models\Role::all()->pluck('name', 'id') as $id => $role)
+                                            {{-- @dump(in_array($role, auth()->user()->getRoleNames()->toArray())) --}}
+                                                <div class="form-check m-1">
+                                                    <input class="form-check-input" type="checkbox"
+                                                        id="inlineFormCheck{{ $id }}" name="roles[]"
+                                                        value="{{ $id }}" {{ in_array($role, auth()->user()->getRoleNames()->toArray()) ? 'checked' : '' }}>
+                                                    <label class="form-check-label"
+                                                        for="inlineFormCheck{{ $id }}">
+                                                        {{ $role }}
+                                                    </label>
+
+                                                </div>
+                                            @endforeach
+                                        </div>
+
+                                        @error('roles')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    @error('current_role_id')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </fieldset>
                             <div class="row justify-content-end gap-x-2">
                                 <a href="{{ route('admin.users.index') }}" class="btn btn-sm btn-outline-danger">Cancel</a>
                                 <button class="btn btn-sm btn-success" type="submit">Submit</button>

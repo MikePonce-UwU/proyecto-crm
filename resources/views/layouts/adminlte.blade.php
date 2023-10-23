@@ -40,7 +40,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="{{ asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
     @stack('styles')
+    {{-- @livewireStyles --}}
+    <livewire:styles />
+
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -105,7 +109,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- ./wrapper -->
 
     <!-- REQUIRED SCRIPTS -->
-
+    {{-- @livewireScripts --}}
+    <livewire:scripts />
+    <script src="{{ asset('js/app.js') }}"></script>
     <!-- jQuery -->
     <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('plugins/jquery-ui/jquery-ui.js') }}"></script>
@@ -145,6 +151,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+    <script src="{{ asset('plugins/sweetalert2/sweetalert2.min.js') }}"></script>
     <script>
         $(document).ready(function() {
             $.extend(true, $.fn.dataTable.defaults, {
@@ -157,7 +164,30 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json',
                 }
             });
-        })
+
+            window.addEventListener('send-notification', (event) => {
+                // console.log(event);
+                toast = event.detail;
+
+                const Toast = Swal.mixin({
+                    toast: toast.notification,
+                    timerProgressBar: toast.notification,
+                    position: toast.position,
+                    showConfirmButton: false,
+                    timer: toast.duration,
+                    didOpen: (__toast) => {
+                        __toast.addEventListener('mouseenter', Swal.stopTimer)
+                        __toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                })
+
+                Toast.fire({
+                    title: toast.title,
+                    icon: toast.type,
+                    text: toast.subtitle,
+                });
+            });
+        });
     </script>
     @stack('scripts')
 </body>

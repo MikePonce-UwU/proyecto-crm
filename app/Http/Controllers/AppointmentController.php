@@ -10,6 +10,12 @@ use App\Http\Requests\UpdateAppointmentRequest;
 
 class AppointmentController extends Controller
 {
+    public function __construct() {
+        $this->middleware(['role:Admin|Team Supervisor|Team Collaborator|Main Salesman|Salesmen|Independiente'], ['only' => ['index']]);
+        $this->middleware(['role:Admin|Team Supervisor|Team Collaborator|Independiente'], ['only' => ['store', 'create', 'update', 'edit']]);
+        $this->middleware(['role:Admin'], ['only' => ['destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -31,9 +37,16 @@ class AppointmentController extends Controller
     public function create()
     {
         //
+        $clientes = auth()->user()->is_admin ?
+            \App\Models\Customer::all() :
+            \App\Models\Customer::where('team_id', auth()->user()->current_team_id)->get();
+        $users = auth()->user()->is_admin ?
+            \App\Models\User::all() :
+            \App\Models\User::where('current_team_id', auth()->user()->current_team_id)->get();
+        // dd($users);
         return view('pages.appointments.create', [
-            'customers' => Customer::all()->pluck('contact_name', 'id'),
-            'users' => User::all()->pluck('name', 'id'),
+            'customers' => $clientes,
+            'users' => $users,
         ]);
     }
 
@@ -46,9 +59,16 @@ class AppointmentController extends Controller
     public function store(StoreAppointmentRequest $request)
     {
         //
-        $appointment = Appointment::create($request->validated());
-        $appointment->team()->associate(auth()->user()->currentTeam);
-        $appointment->save();
+        $validatedData = $request->validated();
+        // dd($validatedData['contact_name']);
+        $userData = User::find($validatedData['user_id']);
+        $appointment = Appointment::create([
+            'customer_id' => $validatedData['customer_id'],
+            'description' => $validatedData['description'],
+            'appointment_date' => $validatedData['appointment_date'],
+            'user_id' => $userData->id,
+            'team_id' => $userData->current_team_id,
+        ]);
         return redirect()->route('admin.appointments.index')->with('appointment-success', 'Appointment set successfully!');
     }
 
@@ -74,7 +94,7 @@ class AppointmentController extends Controller
         //
         return view('pages.appointments.edit', [
             'appointment' => $appointment,
-            'customers' => Customer::all()->pluck('contact_name', 'id'),
+            'customers' => Customer::all()->pluck('first_name', 'id'),
             'users' => User::all()->pluck('name', 'id'),
         ]);
     }
@@ -91,7 +111,6 @@ class AppointmentController extends Controller
         //
         $appointment->update($request->validated());
         return redirect()->route('admin.appointments.index')->with('appointment-success', 'Appointment modified successfully!');
-
     }
 
     /**

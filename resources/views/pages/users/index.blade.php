@@ -4,8 +4,12 @@
         <div class="row justify-content-center">
             <div class="col-12">
                 <div class="card card-outline card-primary">
-                    <div class="card-header">{{ __('User list') }} <a href="{{ route('admin.users.create') }}"
-                            class="btn btn-sm btn-primary float-right">{{ __('New') }}</a></div>
+                    <div class="card-header">{{ __('User list') }}
+                        @role('Admin')
+                            <a href="{{ route('admin.users.create') }}"
+                                class="btn btn-sm btn-primary float-right">{{ __('New') }}</a>
+                        @endrole
+                    </div>
 
                     <div class="card-body">
                         @if (session()->has('user-success'))
@@ -19,7 +23,7 @@
                                     <th>#</th>
                                     <th>name</th>
                                     <th>Email</th>
-                                    <th>Role</th>
+                                    <th>Roles</th>
                                     <th>Is admin</th>
                                     <th>Verified at</th>
                                     <th>Joined at</th>
@@ -29,13 +33,22 @@
                             </thead>
                             <tbody>
                                 @foreach ($users as $user)
-                                    {{-- @dd($user->currentTeam->name) --}}
+                                    {{-- @dump($user->currentGlobalRole) --}}
                                     {{-- @dd($user->teams()->firstWhere('team_id', '=', $user->current_team_id)->pivot->role) --}}
                                     <tr key="{{ $user->id }}">
                                         <td>{{ $user->id }}</td>
                                         <td>{{ $user->name }}</td>
                                         <td>{{ $user->email }}</td>
-                                        <td>{{ $user->teams()->firstWhere('team_id', '=', $user->current_team_id)->pivot->role ?? Str::of('<i>Not joined yet</i>')->toHtmlString() }}
+                                        <td>
+                                            {{-- @dd ($user->getRoleNames()) --}}
+                                            @if ($user->getRoleNames() != null)
+                                                @foreach ($user->getRoleNames() as $key => $role)
+                                                    <div class="badge badge-sm badge-info">{{ $role }}</div>
+                                                @endforeach
+                                            @else
+                                                {{ Str::of('<i>sin rol</i>')->toHtmlString() }}
+                                            @endif
+                                            {{-- {{ $user->currentGlobalRole ? Str::of($user->currentGlobalRole)->title() :  }} --}}
                                         </td>
                                         <td>
                                             {{ $user->is_admin
@@ -43,9 +56,7 @@
                                                 : Str::of('<i class="fas fa-times-circle text-danger"></i>')->toHtmlString() }}
                                         </td>
                                         <td>
-                                            {{ $user->email_verified_at
-                                                ? Str::of('<i class="fas fa-check text-success"></i>')->toHtmlString()
-                                                : Str::of('<i class="fas fa-times text-danger"></i>')->toHtmlString() }}
+                                            {{ $user->email_verified_at ? Str::of('&check;')->toHtmlString() : Str::of('&times;')->toHtmlString() }}
                                         </td>
                                         <td>{{ $user->created_at->diffForHumans() }}</td>
                                         <td>
@@ -59,17 +70,19 @@
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right">
                                                     <h6 class="dropdown-header">{{ __('Options') }}</h6>
-                                                    <a href="{{ route('admin.users.edit', $user) }}"
-                                                        class="dropdown-item bg-gradient-warning"><i
-                                                            class="fas fa-pen mr-4"></i> {{ __('Edit') }}</a>
-                                                    <form action="{{ route('admin.users.destroy', $user) }}"
-                                                        class="d-hidden" method="POST">
-                                                        @csrf
-                                                        @method('delete')
-                                                        <button type="submit" class="dropdown-item bg-gradient-danger"
-                                                            onclick="confirm('Are you sure to do this?');"><i
-                                                                class="fas fa-trash mr-4"></i> {{ __('Delete') }}</button>
-                                                    </form>
+                                                    @role('Admin')
+                                                        <a href="{{ route('admin.users.edit', $user) }}"
+                                                            class="dropdown-item bg-gradient-warning"><i
+                                                                class="fas fa-pen mr-4"></i> {{ __('Edit') }}</a>
+                                                        <form action="{{ route('admin.users.destroy', $user) }}"
+                                                            class="d-hidden" method="POST">
+                                                            @csrf
+                                                            @method('delete')
+                                                            <button type="submit" class="dropdown-item bg-gradient-danger"
+                                                                onclick="confirm('Are you sure to do this?');"><i
+                                                                    class="fas fa-trash mr-4"></i> {{ __('Delete') }}</button>
+                                                        </form>
+                                                    @endrole
                                                 </div>
                                             </div>
                                         </td>

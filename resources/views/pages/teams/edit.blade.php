@@ -12,21 +12,48 @@
                             <fieldset class="row mb-3 border rounded py-4">
                                 <legend class="pl-2">team</legend>
                                 {{-- Name --}}
-                                <div class="input-group col-md-6 col-12  mb-4 mb-sm-0">
-                                    {{-- <input type="email" class="form-control" placeholder="Email"> --}}
-                                    <input id="name" type="text"
-                                        class="form-control @error('name') is-invalid @enderror" name="name"
-                                        value="{{ old('name', $team->name) }}" autofocus placeholder="Insert your name">
-                                    <div class="input-group-append">
-                                        <div class="input-group-text">
-                                            <span class="fas fa-users-cog"></span>
+                                <div class="col-md-6 col-12  mb-4 mb-sm-0">
+                                    <div class="input-group">
+                                        {{-- <input type="email" class="form-control" placeholder="Email"> --}}
+                                        <input id="name" type="text"
+                                            class="form-control @error('name') is-invalid @enderror" name="name"
+                                            value="{{ old('name', $team->name) }}" autofocus placeholder="Insert your name">
+                                        <div class="input-group-append">
+                                            <div class="input-group-text">
+                                                <span class="fas fa-users-cog"></span>
+                                            </div>
                                         </div>
+                                        @error('name')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
-                                    @error('name')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
+                                </div>
+                                {{-- manager_id --}}
+                                <div class="col-md-4 col-12 mb-4">
+                                    <div class="input-group">
+                                        {{-- <input type="email" class="form-control" placeholder="Email"> --}}
+                                        <select name="manager_id" id="manager_id" class="form-control"
+                                            value="{{ old('manager_id', $team->manager_id) }}">
+                                            <option disabled>Select one of the options below</option>
+                                            @foreach ($users as $key => $user)
+                                                <option value="{{ $key }}"
+                                                    {{ $team->manager_id === $key ? 'selected' : '' }}>{{ $user }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        <div class="input-group-append">
+                                            <div class="input-group-text">
+                                                <span class="fas fa-lock"></span>
+                                            </div>
+                                        </div>
+                                        @error('manager_id')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
                                 </div>
                                 {{-- <!-- Is this user associated to this tenant team -->
                                 <div class="form-check col-md-6 col-12  mb-4 mb-sm-0">
@@ -61,13 +88,16 @@
                                             <div class="col-md-6 col-12  mb-4 mb-sm-0">
                                                 <div class="form-group">
                                                     <select name="role" id="role" class="form-control">
-                                                        <option selected disabled>Select an option</option>
+                                                        <option disabled>Select an option</option>
                                                         <option value="supervisor"
                                                             {{ $item->pivot->role == 'supervisor' ? 'selected' : '' }}>
                                                             Supervisor</option>
                                                         <option value="collaborator"
                                                             {{ $item->pivot->role == 'collaborator' ? 'selected' : '' }}>
-                                                            Collaborator</option>
+                                                            Telemarketer</option>
+                                                        <option value="independant"
+                                                            {{ $item->pivot->role == 'independant' ? 'selected' : '' }}>
+                                                            Independiente</option>
                                                     </select>
                                                 </div>
                                             </div>

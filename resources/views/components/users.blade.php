@@ -7,9 +7,9 @@
             </span>
             <select name="user_id" id="user_id" class="form-control">
                 <option selected disabled>Select an option</option>
-                @foreach ($users as $key => $user)
-                    <option value="{{ $key }}">
-                        {{ $user }}
+                @foreach ($users as $user)
+                    <option value="{{ $user->id }}">
+                        {{ $user->name }} {{ $user->current_team_id ? '(' . $user->currentTeam->name . ')' : '' }}
                     </option>
                 @endforeach
             </select>
@@ -20,7 +20,8 @@
             <select name="role" id="role" class="form-control">
                 <option selected disabled>Select an option</option>
                 <option value="supervisor">Supervisor</option>
-                <option value="collaborator">Collaborator</option>
+                <option value="collaborator">Telemarketer</option>
+                <option value="independant">Independiente</option>
             </select>
         </div>
     </div>

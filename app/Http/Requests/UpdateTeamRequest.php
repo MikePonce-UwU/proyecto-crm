@@ -26,6 +26,7 @@ class UpdateTeamRequest extends FormRequest
         return [
             //
             'name' => 'required',
+            'manager_id' => 'required',
         ];
     }
 }

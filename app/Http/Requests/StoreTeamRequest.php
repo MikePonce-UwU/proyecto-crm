@@ -26,6 +26,7 @@ class StoreTeamRequest extends FormRequest
         return [
             //
             'name' => 'required',
+            'manager_id' => 'required',
         ];
     }
 }

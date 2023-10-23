@@ -77,6 +77,30 @@
                                     </div>
                                 </div>
                             </fieldset>
+                            <fieldset class="row mb-3 border rounded py-4">
+                                <legend class="pl-2">Roles</legend>
+                                {{-- role --}}
+                                <div class="col-12 mb-4 mb-sm-0">
+                                    <div class="form-inline">
+                                        @foreach (\App\Models\Role::all()->pluck('name', 'id') as $id => $role)
+                                            <div class="form-check m-1">
+                                                <input class="form-check-input" type="checkbox" id="inlineFormCheck"
+                                                    name="roles[]" value="{{ $id }}">
+                                                <label class="form-check-label" for="inlineFormCheck">
+                                                    {{ $role }}
+                                                </label>
+
+                                            </div>
+                                        @endforeach
+                                    </div>
+
+                                    @error('roles')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </fieldset>
                             <div class="row justify-content-end gap-x-2">
                                 <a href="{{ route('admin.users.index') }}" class="btn btn-sm btn-outline-danger">Cancel</a>
                                 <button class="btn btn-sm btn-success" type="submit">Submit</button>
@@ -88,3 +112,16 @@
         </div>
     </div>
 @endsection
+@push('scripts')
+    <script>
+        // $('#roles-table').dataTable({
+        //     select: true,
+        //     buttons: [
+        //         'selectAll',
+        //         'selectNone'
+        //     ],
+        //     search: false,
+
+        // });
+    </script>
+@endpush
